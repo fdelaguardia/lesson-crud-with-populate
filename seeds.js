@@ -40,5 +40,3 @@ mongoose
     console.log(`An error occurred while creating fake users in the DB: ${err}`);
   });
 
-
-

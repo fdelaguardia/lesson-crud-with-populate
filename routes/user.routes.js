@@ -32,10 +32,23 @@ router.post("/user-create", (req, res) => {
 // GET route to display all users from the DB
 // ****************************************************************************************
 
-router.get("/users", (req, res) => {
+router.get("/", (req, res) => {
   User.find() // <-- .find() method gives us always an ARRAY back
     .then((usersFromDB) => res.render("users/list", { users: usersFromDB }))
     .catch((err) => console.log(`Error while getting users from the DB: ${err}`));
+});
+
+router.get('/posts/:userId/', (req, res, next) => {
+
+  User.findById(req.params.userId)
+  .populate('posts')
+  .then((foundUser) => {
+   res.render('users/details.hbs', foundUser) 
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+  // ... your code here
 });
 
 // ****************************************************************************************
